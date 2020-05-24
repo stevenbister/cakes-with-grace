@@ -1,4 +1,5 @@
 import S from '@sanity/desk-tool/structure-builder';
+import { MdSettings } from 'react-icons/md';
 
 export default () =>
   S.list()
@@ -6,8 +7,10 @@ export default () =>
     .items([
       S.listItem()
         .title('Settings')
+        .icon(MdSettings)
         .child(
           S.editor()
+            .id('siteSettings')
             .schemaType('siteSettings')
             .documentId('siteSettings')
         ),
