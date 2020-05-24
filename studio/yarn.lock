@@ -968,6 +968,14 @@
     postcss-value-parser "^3.3.0"
     source-list-map "^2.0.0"
 
+"@sanity/dashboard@^1.149.15":
+  version "1.149.15"
+  resolved "https://registry.npmjs.org/@sanity/dashboard/-/dashboard-1.149.15.tgz#11e51c9d9354b944df28353f9d7c7e7fb049d935"
+  dependencies:
+    lodash "^4.17.15"
+    react-icons "^2.2.7"
+    rxjs "^6.5.3"
+
 "@sanity/data-aspects@1.149.7":
   version "1.149.7"
   resolved "https://registry.npmjs.org/@sanity/data-aspects/-/data-aspects-1.149.7.tgz#eeca6c285d764f132f73a7488aba2407c1506ae5"
