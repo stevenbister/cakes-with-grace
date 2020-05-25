@@ -5,11 +5,11 @@ import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 // We import object and document schemas
-import category from './category';
+import category from './documents/category';
 import post from './documents/post';
 import recipe from './documents/recipe';
-import author from './author';
-import siteSettings from './siteSettings';
+import author from './documents/author';
+import siteSettings from './documents/siteSettings';
 
 // Import object schemas
 import blockContent from './objects/blockContent';
