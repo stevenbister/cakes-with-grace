@@ -1,5 +1,5 @@
 import S from '@sanity/desk-tool/structure-builder';
-import { MdSettings } from 'react-icons/md';
+import { RiSettings3Line } from 'react-icons/ri';
 
 export default () =>
   S.list()
@@ -7,7 +7,7 @@ export default () =>
     .items([
       S.listItem()
         .title('Settings')
-        .icon(MdSettings)
+        .icon(RiSettings3Line)
         .child(
           S.editor()
             .id('siteSettings')

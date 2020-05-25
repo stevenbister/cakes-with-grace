@@ -5,11 +5,17 @@ import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 // We import object and document schemas
-import blockContent from './blockContent';
-import category from './category';
-import post from './post';
-import author from './author';
-import siteSettings from './siteSettings';
+import category from './documents/category';
+import post from './documents/post';
+import recipe from './documents/recipe';
+import author from './documents/author';
+import siteSettings from './documents/siteSettings';
+
+// Import object schemas
+import blockContent from './objects/blockContent';
+import mainImage from './objects/mainImage';
+import ingredient from './objects/ingredient';
+import timings from './objects/timings';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -22,10 +28,14 @@ export default createSchema({
     // in the studio.
     siteSettings,
     post,
+    recipe,
     author,
     category,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
+    mainImage,
+    ingredient,
+    timings,
   ]),
 });

@@ -6,17 +6,17 @@ export default {
   __experimental_actions: [/* 'create', */ 'update', /* 'delete', */ 'publish'],
   fields: [
     {
-      name: 'siteTitle',
-      title: 'Site Title',
-      type: 'string',
-    },
-    {
       name: 'siteLogo',
       title: 'Site Logo',
       type: 'image',
       options: {
         hotspot: false,
       },
+    },
+    {
+      name: 'instagram',
+      title: 'Link to Instagram',
+      type: 'url',
     },
   ],
 };
