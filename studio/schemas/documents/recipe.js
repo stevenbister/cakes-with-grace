@@ -1,7 +1,10 @@
+import { RiCake3Line } from 'react-icons/ri';
+
 export default {
   name: 'recipe',
   title: 'Recipe',
   type: 'document',
+  icon: RiCake3Line,
   fields: [
     {
       name: 'title',

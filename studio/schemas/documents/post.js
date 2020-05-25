@@ -1,7 +1,10 @@
+import { RiPencilLine } from 'react-icons/ri';
+
 export default {
   name: 'post',
   title: 'Post',
   type: 'document',
+  icon: RiPencilLine,
   fields: [
     {
       name: 'title',
