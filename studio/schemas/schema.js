@@ -9,6 +9,7 @@ import category from './documents/category';
 import post from './documents/post';
 import recipe from './documents/recipe';
 import author from './documents/author';
+import page from './documents/page';
 import siteSettings from './documents/siteSettings';
 
 // Import object schemas
@@ -27,6 +28,7 @@ export default createSchema({
     // The following are document types which will appear
     // in the studio.
     siteSettings,
+    page,
     post,
     recipe,
     author,
