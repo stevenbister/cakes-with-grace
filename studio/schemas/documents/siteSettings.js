@@ -18,5 +18,11 @@ export default {
       title: 'Link to Instagram',
       type: 'url',
     },
+    {
+      name: 'menu',
+      title: 'Menu',
+      type: 'array',
+      of: [{ type: 'menuItem' }],
+    },
   ],
 };
