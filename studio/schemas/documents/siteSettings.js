@@ -6,6 +6,11 @@ export default {
   __experimental_actions: [/* 'create', */ 'update', /* 'delete', */ 'publish'],
   fields: [
     {
+      name: 'siteName',
+      title: 'Site Title',
+      type: 'string',
+    },
+    {
       name: 'siteLogo',
       title: 'Site Logo',
       type: 'image',
