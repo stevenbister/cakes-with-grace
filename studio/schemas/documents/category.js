@@ -22,4 +22,11 @@ export default {
       type: 'text',
     },
   ],
+
+  preview: {
+    select: {
+      title: 'title',
+      media: 'featureImage',
+    },
+  },
 };
