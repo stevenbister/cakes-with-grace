@@ -21,7 +21,6 @@ export default {
       options: {
         source: (doc, options) => options.parent.menuItemName,
         maxLength: 96,
-        // TODO: Need to test this slugify function further
         slugify: input =>
           input
             .toLowerCase()
