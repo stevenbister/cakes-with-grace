@@ -1,5 +1,5 @@
 import S from '@sanity/desk-tool/structure-builder';
-import { RiSettings3Line } from 'react-icons/ri';
+import { RiSettings3Line, RiPagesLine } from 'react-icons/ri';
 
 export default () =>
   S.list()
@@ -15,5 +15,14 @@ export default () =>
             .documentId('siteSettings')
         ),
       S.divider(),
-      ...S.documentTypeListItems().filter(listItem => !['siteSettings'].includes(listItem.getId())),
+      S.listItem()
+        .title('Homepage')
+        .icon(RiPagesLine)
+        .child(
+          S.editor()
+            .id('homePage')
+            .schemaType('homePage')
+            .documentId('homePage')
+        ),
+      ...S.documentTypeListItems().filter(listItem => !['siteSettings', 'homePage'].includes(listItem.getId())),
     ]);

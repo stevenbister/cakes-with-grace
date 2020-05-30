@@ -12,9 +12,21 @@ export default {
       type: 'string',
     },
     {
+      name: 'featureImage',
+      title: 'Feature image',
+      type: 'mainImage',
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'text',
     },
   ],
+
+  preview: {
+    select: {
+      title: 'title',
+      media: 'featureImage',
+    },
+  },
 };

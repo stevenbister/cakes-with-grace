@@ -9,13 +9,16 @@ import category from './documents/category';
 import post from './documents/post';
 import recipe from './documents/recipe';
 import author from './documents/author';
+import page from './documents/page';
 import siteSettings from './documents/siteSettings';
+import homePage from './documents/homePage';
 
 // Import object schemas
 import blockContent from './objects/blockContent';
 import mainImage from './objects/mainImage';
 import ingredient from './objects/ingredient';
 import timings from './objects/timings';
+import menuItem from './objects/menuItem';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -27,6 +30,8 @@ export default createSchema({
     // The following are document types which will appear
     // in the studio.
     siteSettings,
+    homePage,
+    page,
     post,
     recipe,
     author,
@@ -37,5 +42,6 @@ export default createSchema({
     mainImage,
     ingredient,
     timings,
+    menuItem,
   ]),
 });
