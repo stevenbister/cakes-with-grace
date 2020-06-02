@@ -1,4 +1,4 @@
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
@@ -6,6 +6,7 @@ import BlockContent from '@sanity/block-content-to-react'
 import ClientConfig from '../../client-config'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
+import Categories from '../components/Categories'
 
 const query = graphql`
   query($id: String!) {
@@ -52,19 +53,7 @@ const RecipeTemplate = ({ data }) => {
 
       <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } />
 
-      {/* 
-        TODO: Can defo refactor this into it's own component 
-        as it'll be reused in the blog posts!!
-      */}
-      <nav aria-label='categories'>
-        <ul>
-          {categories.map(category => (
-            <li key={ category._key }>
-              <Link to={ category.slug.current }>{ category.title }</Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <Categories categories={ categories } />
 
       <h2>Timings</h2>
       <h3>Prep</h3>
