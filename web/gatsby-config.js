@@ -1,3 +1,4 @@
+const ClientConfig = require('./client-config')
 require('dotenv').config()
 
 module.exports = {
@@ -24,8 +25,7 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        projectId: process.env.SANITY_PROJECT_ID,
-        dataset: process.env.SANITY_DATASET,
+        ...ClientConfig.sanity,
         token: process.env.SANITY_READ_TOKEN
       },
     },
