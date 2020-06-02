@@ -1,12 +1,11 @@
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
-import BlockContent from '@sanity/block-content-to-react'
 
-import ClientConfig from '../../client-config'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
 import Categories from '../components/Categories'
+import PortableText from'../components/PortableText'
 
 const query = graphql`
   query($id: String!) {
@@ -72,14 +71,10 @@ const RecipeTemplate = ({ data }) => {
         ))}
       </ul>
 
-      {/* TODO: Can defo refactor this into it's own component 
-        as it'll be reused in the blog posts!! */}
-        {/* Include the client config so we can render images without materializing the asset documents */}
-      <BlockContent blocks={_rawMethod} {...ClientConfig.sanity} />
+      <PortableText blocks={_rawMethod} />
     </Layout>
   )
 }
-
 
 export default RecipeTemplate
 export { query }
