@@ -73,8 +73,8 @@ const RecipeTemplate = ({ data }) => {
       <Categories categories={ categories } />
 
       <h2>Timings</h2>
+
       <h3>Prep</h3>
-      {/* TODO: create a function to work out hours/minutes if greater than 60mins */}
       <p>{ minutesToHours(timings.prep) }</p>
 
       <h3>Cook</h3>
