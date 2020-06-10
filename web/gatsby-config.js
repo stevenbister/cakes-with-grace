@@ -1,5 +1,5 @@
-const ClientConfig = require('./client-config')
 require('dotenv').config()
+const ClientConfig = require('./client-config')
 
 module.exports = {
   siteMetadata: {
