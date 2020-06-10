@@ -1,11 +1,13 @@
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
 import Categories from '../components/Categories'
-import PortableText from'../components/PortableText'
+import PortableText from '../components/PortableText'
+import GraphqlErrorList from '../components/GraphqlErrors'
 
 const query = graphql`
   query($id: String!) {
@@ -42,11 +44,11 @@ const query = graphql`
 `
 
 // Check if the value passed is greater than one and add n 's' to the end of the string if true
-const isPlural = (val, string) => val > 1 ? `${string}s` : `${string}`;
+const isPlural = ( val, string ) => val > 1 ? `${string}s` : `${string}`;
 
-const minutesToHours = (mins) => {
+const minutesToHours = ( mins ) => {
   // Check if mins are greather than 60
-  if (mins > 60) {
+  if ( mins > 60 ) {
     // Get the number of hours within the minutes and round down to remove the remainder
     const hours = (mins / 60);
     const roundHours = Math.floor(hours);
@@ -59,39 +61,61 @@ const minutesToHours = (mins) => {
   return `${mins} ${isPlural(mins, 'minute')}`
 }
 
-const RecipeTemplate = ({ data }) => {
+const RecipeTemplate = ({ data, errors }) => {
 
   const { title, categories, timings, ingredients, mainImage, _rawMethod } = data.sanityRecipe
 
   return (
     <Layout>
-      <SEO title={ title } />
-      <h1>{ title }</h1>
+      {/* Let's check for errors and return the error message */}
+      { errors && <SEO title='GraphQL Error' /> }
+      { errors && <GraphqlErrorList errors={errors} /> }
 
-      <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } />
+      {/* If there are no errors lets return the content as normal */}
+      {/* TODO: Set up SEO fully */}
+      { data.sanityRecipe && <SEO title={ title } /> }
+      { data.sanityRecipe && (
+        <>
+          { title && <h1>{ title }</h1> }
 
-      <Categories categories={ categories } />
+          { mainImage && <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } /> }
 
-      <h2>Timings</h2>
+          { categories && <Categories categories={ categories } /> }
 
-      <h3>Prep</h3>
-      <p>{ minutesToHours(timings.prep) }</p>
+          { timings && (
+            <>
+              <h2>Timings</h2>
 
-      <h3>Cook</h3>
-      <p>{ minutesToHours(timings.cook) }</p>
+              <h3>Prep</h3>
+              <p>{ minutesToHours(timings.prep) }</p>
 
-      <h2>Ingredients</h2>
-      <ul>
-        {ingredients.map(ingredient => (
-          <li key={ ingredient._key }>
-            <span>{ ingredient.amount }</span> <span>{ ingredient.measurement }</span> <span>{ ingredient.name }</span>
-          </li>
-        ))}
-      </ul>
+              <h3>Cook</h3>
+              <p>{ minutesToHours(timings.cook) }</p>
+            </>
+          ) }
 
-      <PortableText blocks={_rawMethod} />
+          { ingredients && (
+            <>
+              <h2>Ingredients</h2>
+              <ul>
+                {ingredients.map(ingredient => (
+                  <li key={ ingredient._key }>
+                    <span>{ ingredient.amount }</span> <span>{ ingredient.measurement }</span> <span>{ ingredient.name }</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) }
+
+          { _rawMethod && <PortableText blocks={_rawMethod} /> }
+        </>
+      ) }
     </Layout>
   )
+}
+
+RecipeTemplate.propTypes = {
+  data: PropTypes.object,
 }
 
 export default RecipeTemplate
