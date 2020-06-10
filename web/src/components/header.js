@@ -1,26 +1,33 @@
-import { Link } from 'gatsby'
-import PropTypes from 'prop-types'
+import { Link, graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import Logo from '../images/cakes-with-grace.svg'
 import Nav from './Nav'
 
-const Header = ({siteTitle}) =>  (
-  <header>
-    <Link to='/'>
-      <img src={Logo} alt={siteTitle} />
-    </Link>
+const Header = () => {
+  const data = useStaticQuery(graphql`
+    query SettingsQuery {
+      sanitySiteSettings {
+        siteName
+        siteLogo {
+          asset {
+            url
+          }
+        }
+      }
+    }
+  `)
 
-    <Nav />
+  const { siteName, siteLogo } = data.sanitySiteSettings
+  const logo = siteLogo.asset.url
+
+  return (
+    <header>
+      <Link to='/'>
+        { logo ? <img src={ logo } alt={ siteName } /> : siteName }
+      </Link>
+
+      <Nav />
   </header>
-)
-
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+  )
 }
 
 export default Header
