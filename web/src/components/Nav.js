@@ -6,7 +6,7 @@ import React from 'react'
 const Nav = () => {
   const data = useStaticQuery(graphql`
     query NavQuery {
-      sanitySiteSettings(_id: {eq: "siteSettings"}) {
+      sanitySiteSettings {
         menu {
           internalLink {
             ...on SanityCategory {
@@ -44,19 +44,18 @@ const Nav = () => {
     }
   `)
 
-  const { menu, instagram } = data.sanitySiteSettings;
+  const { menu, instagram } = data.sanitySiteSettings
 
   return (
     <nav>
       <ul>
-
-        {menu.map(({ internalLink }) => (
+        { menu && menu.map(({ internalLink }) => (
           <li key={ internalLink.id }>
             <Link to={ internalLink.slug.current }>
               { internalLink.title }
             </Link>
           </li>
-        ))}
+        )) }
         
         { instagram && <li><a href={ instagram }>Instagram</a></li> }
         
