@@ -1,5 +1,6 @@
 import { Link } from 'gatsby'
 import React from 'react'
+import PropTypes, { array } from 'prop-types'
 
 const Categories = ({ categories }) => (
   <nav aria-label='categories'>
@@ -12,5 +13,9 @@ const Categories = ({ categories }) => (
     </ul>
   </nav>
 )
+
+Categories.propTypes = {
+  categories: array
+}
 
 export default Categories

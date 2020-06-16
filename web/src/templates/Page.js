@@ -1,3 +1,4 @@
+import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -6,9 +7,10 @@ import Layout from '../components/Layout'
 import SEO from '../components/seo'
 import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
+import PostsList from '../components/PostsList'
 
 const query = graphql`
-  query($id: String!) {
+  query PageQuery($id: String!) {
     sanityPage(id: {eq: $id}) {
       title
       slug {
@@ -43,9 +45,12 @@ const PageTemplate = ({ data, errors }) => {
 
             { mainImage && <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } /> }
             
-            { _rawBody && <PortableText blocks={ _rawBody } /> } 
+            { _rawBody && <PortableText blocks={ _rawBody } /> }
+
+            { title === 'Blog' && <PostsList /> }
+            
           </>
-      ) }       
+      ) }  
     </Layout>
   )
 }
