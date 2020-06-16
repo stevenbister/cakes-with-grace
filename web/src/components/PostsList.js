@@ -31,12 +31,8 @@ const PostsList = () => {
     }
   `)
 
-  const { id, title, slug, categories, mainImage } = data.allSanityPost.nodes
-
   return (
     <>
-      <pre>{JSON.stringify(data, null, 4)}</pre>
-
       { data.allSanityPost.nodes.map( ({ id, title, slug, categories, mainImage, publishedAt }) => (
         // TODO: refactor this fella into it's own component
         <div key={ id }>
