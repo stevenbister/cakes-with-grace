@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const StyledNav = styled.nav`
   font-family: ${ props => props.theme.titleFont };
-  padding: 0 0.5rem;
+  padding: 0;
 
   ul {
     list-style: none;
@@ -13,12 +13,15 @@ const StyledNav = styled.nav`
     display: flex;
   }
 
+  li {
+    padding: 0 1rem;
+  }
+
   a {
     color: ${ props => props.theme.primaryColor };
     text-decoration: none;
     font-size: 1.25rem;
     line-height: 1.5;
-    padding: 1rem;
     transition: 0.5s;
 
     &:hover {
