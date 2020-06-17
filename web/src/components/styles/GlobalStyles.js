@@ -351,6 +351,16 @@ const GlobalStyle = createGlobalStyle`
     display: none;
   }
 
+  /* Start global styles
+    ========================================================================== */
+  body {
+    font-family: ${ props => props.theme.bodyFont };
+    color: ${ props => props.theme.primaryColor };
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${ props => props.theme.titleFont };
+  }
 `;
 
 export default GlobalStyle 
