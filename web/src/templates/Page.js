@@ -8,6 +8,7 @@ import SEO from '../components/seo'
 import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
 import PostsList from '../components/PostsList'
+import RecipesList from '../components/RecipesList'
 
 const query = graphql`
   query PageQuery($id: String!) {
@@ -49,6 +50,7 @@ const PageTemplate = ({ data, errors }) => {
 
             { title === 'Blog' && <PostsList /> }
             
+            { title === 'Recipes' && <RecipesList />}
           </>
       ) }  
     </Layout>
