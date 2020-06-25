@@ -1,9 +1,21 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const StyledCategoryList = styled.nav`
+  ul {
+    list-style: none;
+    padding: 0;
+
+    a {
+      color: ${ props => props.theme.secondaryColor };
+    }
+  }
+`
 
 const Categories = ({ categories }) => (
-  <nav aria-label='categories'>
+  <StyledCategoryList aria-label='categories'>
     <ul>
       {categories.map(category => (
         <li key={ category._key }>
@@ -11,7 +23,7 @@ const Categories = ({ categories }) => (
         </li>
       ))}
     </ul>
-  </nav>
+  </StyledCategoryList>
 )
 
 Categories.propTypes = {
