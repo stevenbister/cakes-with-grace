@@ -3,31 +3,50 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import { capitalise } from '../helpers'
+
 const StyledCategoryList = styled.nav`
   ul {
     list-style: none;
     padding: 0;
+  }
 
-    a {
-      color: ${ props => props.theme.secondaryColor };
+  li {
+    display: inline-flex;
+
+    &:not(:last-child)::after {
+      content: '/';
+      padding: 0 0.375rem;
+    }
+  }
+
+  a {
+    color: ${ props => props.theme.secondaryColor };
+
+    &:hover {
+      text-decoration: none;
     }
   }
 `
 
-const Categories = ({ categories }) => (
+const Categories = ({ parent, categories }) => (
   <StyledCategoryList aria-label='categories'>
     <ul>
       {categories.map(category => (
-        <li key={ category._key }>
-          <Link to={ category.slug.current }>{ category.title }</Link>
-        </li>
+        <>
+        { parent && <li><Link to={ parent }>{ capitalise(parent) }</Link></li> }
+          <li key={ category._key }>
+            <Link to={ category.slug.current }>{ category.title }</Link>
+          </li>
+        </>
       ))}
     </ul>
   </StyledCategoryList>
 )
 
 Categories.propTypes = {
-  categories: PropTypes.array
+  categories: PropTypes.array,
+  parent: PropTypes.string,
 }
 
 export default Categories
