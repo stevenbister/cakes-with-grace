@@ -27,7 +27,7 @@ module.exports = {
       options: {
         fonts: [
           `Lalezar`,
-          `source sans pro\:400`
+          `source sans pro\:300,400`
         ],
         display: `swap`
       }
