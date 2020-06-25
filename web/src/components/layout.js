@@ -8,15 +8,16 @@ import Footer from './footer'
 import Theme from './styles/Theme'
 import GlobalStyle from './styles/GlobalStyles'
 
-const Styledlayout = styled.main`
-  display: grid;
-  grid-template-columns: 1fr minmax(480px, 10fr) 1fr;
+// TODO: Remove this maybe?
+// const Styledlayout = styled.main`
+//   display: grid;
+//   grid-template-columns: 1fr minmax(480px, 10fr) 1fr;
 
-  > * {
-    grid-column: 2 / 3;
-    width: 100%;
-  }
-`
+//   > * {
+//     grid-column: 1 / 4;
+//     width: 100%;
+//   }
+// `
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -32,11 +33,11 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={ Theme }>
       <GlobalStyle />
-      
+
       <Header />
-      
-      <Styledlayout>{children}</Styledlayout>
-      
+
+      <main>{children}</main>
+
       <Footer />
     </ThemeProvider>
   )
