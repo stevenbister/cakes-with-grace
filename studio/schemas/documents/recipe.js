@@ -27,6 +27,11 @@ export default {
       type: 'mainImage',
     },
     {
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
+    },
+    {
       name: 'categories',
       title: 'Categories',
       type: 'array',
@@ -60,10 +65,19 @@ export default {
       category1: 'categories.1.title',
       media: 'mainImage',
     },
-    prepare({ title, originalNumberOfCategories, category0, category1, media }) {
+    prepare({
+      title,
+      originalNumberOfCategories,
+      category0,
+      category1,
+      media,
+    }) {
       // Lets put the defined categories into their own array so we can count them later
       const categoriesArray = [category0, category1];
-      let subtitle = originalNumberOfCategories > 1 ? categoriesArray.join(' and ') : categoriesArray.join('');
+      let subtitle =
+        originalNumberOfCategories > 1
+          ? categoriesArray.join(' and ')
+          : categoriesArray.join('');
 
       if (originalNumberOfCategories > categoriesArray.length) {
         const difference = originalNumberOfCategories - categoriesArray.length;
