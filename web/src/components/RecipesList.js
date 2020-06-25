@@ -1,10 +1,16 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
+import styled from 'styled-components'
 
 import Card from '../components/Card'
 
-const RecipesList = () => {
+const StyledList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 2rem;
+`
 
+const RecipesList = () => {
   const data = useStaticQuery(graphql`
     query getRecipes {
       allSanityRecipe {
@@ -34,7 +40,7 @@ const RecipesList = () => {
   `)
 
   return (
-    <>
+    <StyledList>
       { data.allSanityRecipe.nodes.map( ({ id, title, slug, categories, mainImage }) => (
         <Card
           key={ id }
@@ -45,7 +51,7 @@ const RecipesList = () => {
           image={ mainImage }
         />
       )) }      
-    </>
+    </StyledList>
   )
 }
 
