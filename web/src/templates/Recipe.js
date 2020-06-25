@@ -10,6 +10,8 @@ import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
 import Hero from '../components/Hero'
 
+import { minutesToHours } from '../helpers'
+
 const query = graphql`
   query($id: String!) {
     sanityRecipe(id: {eq: $id}) {
@@ -48,31 +50,13 @@ const query = graphql`
 // ?: Will probably need to put this into it's own file for reuse
 const StyledArticle = styled.article`
   display: grid;
-  grid-template-columns: 1fr minmax(300px, 10fr) 1fr;
+  grid-template-columns: 1fr minmax(300px, 7fr) 1fr;
 
   > *:not(header) {
     grid-column: 2 / 3;
     width: 100%;
   }
 `
-
-// Check if the value passed is greater than one and add n 's' to the end of the string if true
-const isPlural = ( val, string ) => val > 1 ? `${string}s` : `${string}`;
-
-const minutesToHours = ( mins ) => {
-  // Check if mins are greather than 60
-  if ( mins > 60 ) {
-    // Get the number of hours within the minutes and round down to remove the remainder
-    const hours = (mins / 60);
-    const roundHours = Math.floor(hours);
-    // Take the remainder hours and multiply them by 60 to get the minutes within the hour
-    const minutes = (hours - roundHours) * 60;
-    const roundMinutes = Math.floor(minutes);
-
-    return `${roundHours} ${isPlural(roundHours, 'hour')}, ${roundMinutes} ${isPlural(roundMinutes, 'minute')}`
-  }
-  return `${mins} ${isPlural(mins, 'minute')}`
-}
 
 const RecipeTemplate = ({ data, errors }) => {
 
@@ -98,7 +82,8 @@ const RecipeTemplate = ({ data, errors }) => {
                 published={ publishedAt } />
               }
 
-            { categories && <Categories categories={ categories } />}
+              {/* ? Can I pass the parent more intelligently? */}
+            { categories && <Categories parent='recipes' categories={ categories } />}
 
             { timings && (
               <>
