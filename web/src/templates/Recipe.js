@@ -9,8 +9,7 @@ import Categories from '../components/Categories'
 import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
 import Hero from '../components/Hero'
-
-import { minutesToHours } from '../helpers'
+import Timings from '../components/Timings'
 
 const query = graphql`
   query($id: String!) {
@@ -82,20 +81,10 @@ const RecipeTemplate = ({ data, errors }) => {
                 published={ publishedAt } />
               }
 
-              {/* ? Can I pass the parent more intelligently? */}
+            {/* ? Can I pass the parent more intelligently? */}
             { categories && <Categories parent='recipes' categories={ categories } />}
 
-            { timings && (
-              <>
-                <h2>Timings</h2>
-
-                <h3>Prep</h3>
-                <p>{ minutesToHours(timings.prep) }</p>
-
-                <h3>Cook</h3>
-                <p>{ minutesToHours(timings.cook) }</p>
-              </>
-            ) }
+            { timings && <Timings prep={ timings.prep } cook={ timings.cook } /> }
 
             { ingredients && (
               <>
