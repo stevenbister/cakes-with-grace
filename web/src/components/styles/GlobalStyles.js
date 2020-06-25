@@ -360,6 +360,10 @@ const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ props => props.theme.titleFont };
+  }
+
+  /* Let's remove the top margin so we'll prevent any unintended positioning bugs */
+  h1, h2, h3, h4, h5, h6, p {
     margin-top: 0;
   }
 `;
