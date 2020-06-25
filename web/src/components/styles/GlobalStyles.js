@@ -353,6 +353,10 @@ const GlobalStyle = createGlobalStyle`
 
   /* Start global styles
     ========================================================================== */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body {
     font-family: ${ props => props.theme.bodyFont };
     color: ${ props => props.theme.primaryColor };
