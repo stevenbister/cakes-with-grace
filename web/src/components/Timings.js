@@ -9,7 +9,17 @@ const StyledTimings = styled.section`
   border-bottom: solid 1px ${ props => props.theme.secondaryColor };
   display: inline-flex;
   justify-content: space-around;
-  padding: 2.75rem 0 ;
+  padding: 1.5rem 0;
+
+  @media (min-width: 768px) {
+    padding: 2.75rem 0;
+    margin-bottom: 5rem;
+
+    + h2 {
+      margin-top: 0;
+    }
+  }
+
 
   .circular-chart__wrapper {
     display: flex;
@@ -23,11 +33,22 @@ const StyledTimings = styled.section`
     }
 
     h2 {
-      margin-bottom: 0.5em;
+      font-size: 1rem;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      @media (min-width: 640px) {
+        font-size: 1.5rem;
+      }
     }
 
     p {
       margin-bottom: 0;
+      font-size: 0.75rem;
+
+      @media (min-width: 768px) {
+        font-size: initial;
+      }
     }
   }
 
@@ -36,15 +57,15 @@ const StyledTimings = styled.section`
     margin: 10px auto;
     max-width: 10em;
     max-height: 160px;
+    margin: 0 10px;
   }
 
   .circular-chart__circle {
     /* TODO: Set to branded colour now it's working */
-    stroke: #4CC790;
+    stroke: #ffbe0b;
     fill: none;
-    stroke-width: 2.8;
+    stroke-width: 2;
     stroke-linecap: round;
-    animation: progress 1s ease-out forwards;
   }
 `
 

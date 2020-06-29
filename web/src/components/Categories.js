@@ -9,10 +9,12 @@ const StyledCategoryList = styled.nav`
   ul {
     list-style: none;
     padding: 0;
+    margin: 1rem 0;
   }
 
   li {
     display: inline-flex;
+    margin: 0;
 
     &:not(:last-child)::after {
       content: '/';
