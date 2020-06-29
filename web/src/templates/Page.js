@@ -7,8 +7,10 @@ import Layout from '../components/Layout'
 import SEO from '../components/seo'
 import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
+import Hero from '../components/Hero'
 import PostsList from '../components/PostsList'
 import RecipesList from '../components/RecipesList'
+import StyledArticle from '../components/styles/PageGrid'
 
 const query = graphql`
   query PageQuery($id: String!) {
@@ -19,7 +21,9 @@ const query = graphql`
       }
       mainImage {
         asset {
-          url
+          fluid {
+            ...GatsbySanityImageFluid_withWebp
+          }
         }
         alternativeText
       }
@@ -31,28 +35,37 @@ const query = graphql`
 const PageTemplate = ({ data, errors }) => {
   const { title, mainImage, _rawBody } = data.sanityPage
 
+  const image = mainImage && mainImage.asset.fluid
+  const alt = mainImage && mainImage.alternativeText
+
   return (
     <Layout>
-      {/* Let's check for errors and return the error message */}
-      { errors && <SEO title='GraphQL Error' /> }
-      { errors && <GraphqlErrorList errors={errors} /> }
+      <StyledArticle>
+        {/* Let's check for errors and return the error message */}
+        { errors && <SEO title='GraphQL Error' /> }
+        { errors && <GraphqlErrorList errors={errors} /> }
 
-      {/* If there are no errors lets return the content as normal */}
-      {/* TODO: Set up SEO fully */}
-      { data.sanityPage && <SEO title={ title }/> }
-      { data.sanityPage && (
-          <>
-            { title && <h1>{ title }</h1> }
+        {/* If there are no errors lets return the content as normal */}
+        {/* TODO: Set up SEO fully */}
+        { data.sanityPage && <SEO title={ title }/> }
+        { data.sanityPage && (
+            <>
+              { title &&
+                <Hero
+                  title={ title }
+                  img={ image }
+                  alt={ alt }
+                  />
+                }
 
-            { mainImage && <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } /> }
-            
-            { _rawBody && <PortableText blocks={ _rawBody } /> }
+              { _rawBody && <PortableText blocks={ _rawBody } /> }
 
-            { title === 'Blog' && <PostsList /> }
-            
-            { title === 'Recipes' && <RecipesList />}
-          </>
-      ) }  
+              { title === 'Blog' && <PostsList /> }
+
+              { title === 'Recipes' && <RecipesList />}
+            </>
+        ) }
+      </StyledArticle>
     </Layout>
   )
 }
