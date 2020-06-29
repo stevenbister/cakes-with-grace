@@ -10,6 +10,7 @@ import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
 import Hero from '../components/Hero'
 import Timings from '../components/Timings'
+import StyledArticle from '../components/styles/PageGrid'
 
 const query = graphql`
   query($id: String!) {
@@ -43,22 +44,6 @@ const query = graphql`
       _rawMethod
       publishedAt(formatString: "MMMM DD, YYYY")
     }
-  }
-`
-
-// ?: Will probably need to put this into it's own file for reuse
-const StyledArticle = styled.article`
-  display: grid;
-  grid-template-columns: 1fr minmax(300px, 7fr) 1fr;
-  margin-bottom: 3rem;
-
-  @media (min-width: 768px) {
-    margin-bottom: 6rem;
-  }
-
-  > *:not(header) {
-    grid-column: 2 / 3;
-    width: 100%;
   }
 `
 
