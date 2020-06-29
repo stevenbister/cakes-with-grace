@@ -1,7 +1,34 @@
 import { Link, graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
+import styled from 'styled-components'
 
-// TODO: Style this boi
+const StyledNav = styled.nav`
+  font-family: ${ props => props.theme.titleFont };
+  padding: 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+
+  li {
+    padding: 0 1rem;
+  }
+
+  a {
+    color: ${ props => props.theme.primaryColor };
+    text-decoration: none;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    transition: 0.5s;
+
+    &:hover {
+      color: ${ props => props.theme.secondaryColor };
+    }
+  }
+`
 
 const Nav = () => {
   const data = useStaticQuery(graphql`
@@ -47,7 +74,7 @@ const Nav = () => {
   const { menu, instagram } = data.sanitySiteSettings
 
   return (
-    <nav>
+    <StyledNav>
       <ul>
         { menu && menu.map(({ internalLink }) => (
           <li key={ internalLink.id }>
@@ -60,7 +87,7 @@ const Nav = () => {
         { instagram && <li><a href={ instagram }>Instagram</a></li> }
         
       </ul>
-    </nav>
+    </StyledNav>
   )
 }
 

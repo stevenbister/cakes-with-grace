@@ -1,13 +1,15 @@
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
 import Categories from '../components/Categories'
 import PortableText from '../components/PortableText'
 import GraphqlErrorList from '../components/GraphqlErrors'
+import Hero from '../components/Hero'
+import Timings from '../components/Timings'
 
 const query = graphql`
   query($id: String!) {
@@ -32,84 +34,80 @@ const query = graphql`
       }
       mainImage {
         asset {
-          fluid(maxWidth: 700) {
+          fluid {
             ...GatsbySanityImageFluid_withWebp
           }
         }
         alternativeText
       }
       _rawMethod
+      publishedAt(formatString: "MMMM DD, YYYY")
     }
   }
 `
 
-// Check if the value passed is greater than one and add n 's' to the end of the string if true
-const isPlural = ( val, string ) => val > 1 ? `${string}s` : `${string}`;
+// ?: Will probably need to put this into it's own file for reuse
+const StyledArticle = styled.article`
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 7fr) 1fr;
+  margin-bottom: 3rem;
 
-const minutesToHours = ( mins ) => {
-  // Check if mins are greather than 60
-  if ( mins > 60 ) {
-    // Get the number of hours within the minutes and round down to remove the remainder
-    const hours = (mins / 60);
-    const roundHours = Math.floor(hours);
-    // Take the remainder hours and multiply them by 60 to get the minutes within the hour
-    const minutes = (hours - roundHours) * 60;
-    const roundMinutes = Math.floor(minutes);
-  
-    return `${roundHours} ${isPlural(roundHours, 'hour')}, ${roundMinutes} ${isPlural(roundMinutes, 'minute')}`
+  @media (min-width: 768px) {
+    margin-bottom: 6rem;
   }
-  return `${mins} ${isPlural(mins, 'minute')}`
-}
+
+  > *:not(header) {
+    grid-column: 2 / 3;
+    width: 100%;
+  }
+`
 
 const RecipeTemplate = ({ data, errors }) => {
 
-  const { title, categories, timings, ingredients, mainImage, _rawMethod } = data.sanityRecipe
+  const { title, categories, timings, ingredients, mainImage, publishedAt, _rawMethod } = data.sanityRecipe
 
   return (
     <Layout>
-      {/* Let's check for errors and return the error message */}
-      { errors && <SEO title='GraphQL Error' /> }
-      { errors && <GraphqlErrorList errors={errors} /> }
+      <StyledArticle>
+        {/* Let's check for errors and return the error message */}
+        { errors && <SEO title='GraphQL Error' /> }
+        { errors && <GraphqlErrorList errors={ errors } /> }
 
-      {/* If there are no errors lets return the content as normal */}
-      {/* TODO: Set up SEO fully */}
-      { data.sanityRecipe && <SEO title={ title } /> }
-      { data.sanityRecipe && (
-        <>
-          { title && <h1>{ title }</h1> }
+        {/* If there are no errors lets return the content as normal */}
+        {/* TODO: Set up SEO fully */}
+        { data.sanityRecipe && <SEO title={ title } /> }
+        { data.sanityRecipe && (
+          <>
+            { title &&
+              <Hero
+                title={ title }
+                img={ mainImage.asset.fluid }
+                alt={ mainImage.alternativeText }
+                published={ publishedAt } />
+              }
 
-          { mainImage && <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } /> }
+            {/* ? Can I pass the parent more intelligently? */}
+            { categories && <Categories parent='recipes' categories={ categories } />}
 
-          { categories && <Categories categories={ categories } /> }
+            { timings && <Timings prep={ timings.prep } cook={ timings.cook } /> }
 
-          { timings && (
-            <>
-              <h2>Timings</h2>
+            { ingredients && (
+              <>
+                <h2>Ingredients</h2>
+                <ul>
+                  {ingredients.map(ingredient => (
+                    <li key={ ingredient._key }>
+                      <span>{ ingredient.amount }</span> <span>{ ingredient.measurement }</span> <span>{ ingredient.name }</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) }
 
-              <h3>Prep</h3>
-              <p>{ minutesToHours(timings.prep) }</p>
-
-              <h3>Cook</h3>
-              <p>{ minutesToHours(timings.cook) }</p>
-            </>
-          ) }
-
-          { ingredients && (
-            <>
-              <h2>Ingredients</h2>
-              <ul>
-                {ingredients.map(ingredient => (
-                  <li key={ ingredient._key }>
-                    <span>{ ingredient.amount }</span> <span>{ ingredient.measurement }</span> <span>{ ingredient.name }</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) }
-
-          { _rawMethod && <PortableText blocks={_rawMethod} /> }
-        </>
-      ) }
+            { _rawMethod && <PortableText blocks={_rawMethod} /> }
+          </>
+        ) }
+      </StyledArticle>
     </Layout>
   )
 }

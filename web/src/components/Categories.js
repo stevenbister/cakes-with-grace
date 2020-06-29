@@ -1,21 +1,54 @@
 import { Link } from 'gatsby'
 import React from 'react'
-import PropTypes, { array } from 'prop-types'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-const Categories = ({ categories }) => (
-  <nav aria-label='categories'>
+import { capitalise } from '../helpers'
+
+const StyledCategoryList = styled.nav`
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  li {
+    display: inline-flex;
+    margin: 0;
+
+    &:not(:last-child)::after {
+      content: '/';
+      padding: 0 0.375rem;
+    }
+  }
+
+  a {
+    color: ${ props => props.theme.secondaryColor };
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+`
+
+const Categories = ({ parent, categories }) => (
+  <StyledCategoryList aria-label='categories'>
     <ul>
       {categories.map(category => (
-        <li key={ category._key }>
-          <Link to={ category.slug.current }>{ category.title }</Link>
-        </li>
+        <>
+        { parent && <li><Link to={ parent }>{ capitalise(parent) }</Link></li> }
+          <li key={ category._key }>
+            <Link to={ category.slug.current }>{ category.title }</Link>
+          </li>
+        </>
       ))}
     </ul>
-  </nav>
+  </StyledCategoryList>
 )
 
 Categories.propTypes = {
-  categories: array
+  categories: PropTypes.array,
+  parent: PropTypes.string,
 }
 
 export default Categories

@@ -21,6 +21,17 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    // Google fonts
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Lalezar`,
+          `source sans pro\:300,400`
+        ],
+        display: `swap`
+      }
+    },
     // Connect to Sanity.io
     {
       resolve: `gatsby-source-sanity`,

@@ -351,6 +351,40 @@ const GlobalStyle = createGlobalStyle`
     display: none;
   }
 
+  /* Start global styles
+    ========================================================================== */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: ${ props => props.theme.bodyFont };
+    color: ${ props => props.theme.primaryColor };
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${ props => props.theme.titleFont };
+  }
+
+  /* Let's remove the top margin so we'll prevent any unintended positioning bugs */
+  h1, h2, h3, h4, h5, h6, p, ul {
+    margin-top: 0;
+  }
+
+  h2 {
+    font-size: 26px;
+    margin-top: 1em;
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  p, li {
+    font-size: 1.0625rem;
+    margin-bottom: 1rem;
+  }
 `;
 
-export default GlobalStyle 
+export default GlobalStyle
