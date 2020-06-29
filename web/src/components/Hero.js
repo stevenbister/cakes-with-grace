@@ -53,7 +53,7 @@ const Hero = ({ title, img, alt, published }) => {
       {img && <Img fluid={ img } alt={ alt } className='banner' />}
       <div className='hero__container'>
         <h1>{ title }</h1>
-        <p>Published<br />{ published }</p>
+        { published && <p>Published<br />{ published }</p> }
       </div>
     </StyledHero>
   )
