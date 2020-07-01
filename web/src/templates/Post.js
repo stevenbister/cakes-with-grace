@@ -1,5 +1,4 @@
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,6 +7,8 @@ import SEO from '../components/seo'
 import Categories from '../components/Categories'
 import PortableText from'../components/PortableText'
 import GraphQLErrorList from '../components/GraphqlErrors'
+import Hero from '../components/Hero'
+
 
 const query = graphql`
   query($id: String!) {
@@ -28,13 +29,14 @@ const query = graphql`
         alternativeText
       }
       _rawBody
+      publishedAt(formatString: "MMMM DD, YYYY")
     }
   }
 `
 
 const PostTemplate = ({ data, errors }) => {
-  const { title, categories, mainImage, _rawBody } = data.sanityPost
-  
+  const { title, categories, mainImage, _rawBody, publishedAt } = data.sanityPost
+
   return (
     <Layout>
       {/* Let's check for errors and return the error message */}
@@ -46,15 +48,19 @@ const PostTemplate = ({ data, errors }) => {
       { data.sanityPost && <SEO title={ title }/> }
       { data.sanityPost && (
           <>
-            { title && <h1>{ title }</h1> }
+            { title &&
+              <Hero
+                title={ title }
+                img={ mainImage.asset.fluid }
+                alt={ mainImage.alternativeText }
+                published={ publishedAt } />
+              }
 
-            { mainImage && <Img fluid={ mainImage.asset.fluid } alt={ mainImage.alternativeText } /> }
+            { categories && <Categories parent='blog' categories={ categories } /> }
 
-            { categories && <Categories categories={ categories } /> }
-            
             { _rawBody && <PortableText blocks={ _rawBody } /> }
           </>
-      ) }       
+      ) }
     </Layout>
   )
 }
