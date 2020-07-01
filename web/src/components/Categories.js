@@ -34,9 +34,9 @@ const StyledCategoryList = styled.nav`
 const Categories = ({ parent, categories }) => (
   <StyledCategoryList aria-label='categories'>
     <ul>
+      { parent && <li><Link to={ parent }>{ capitalise(parent) }</Link></li> }
       {categories.map(category => (
         <>
-        { parent && <li><Link to={ parent }>{ capitalise(parent) }</Link></li> }
           <li key={ category._key }>
             <Link to={ category.slug.current }>{ category.title }</Link>
           </li>
