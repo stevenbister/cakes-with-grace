@@ -8,6 +8,7 @@ import Categories from '../components/Categories'
 import PortableText from'../components/PortableText'
 import GraphQLErrorList from '../components/GraphqlErrors'
 import Hero from '../components/Hero'
+import StyledArticle from '../components/styles/PageGrid'
 
 
 const query = graphql`
@@ -39,28 +40,30 @@ const PostTemplate = ({ data, errors }) => {
 
   return (
     <Layout>
-      {/* Let's check for errors and return the error message */}
-      { errors && <SEO title='GraphQL Error' /> }
-      { errors && <GraphQLErrorList errors={errors} /> }
+      <StyledArticle>
+        {/* Let's check for errors and return the error message */}
+        { errors && <SEO title='GraphQL Error' /> }
+        { errors && <GraphQLErrorList errors={errors} /> }
 
-      {/* If there are no errors lets return the content as normal */}
-      {/* TODO: Set up SEO fully */}
-      { data.sanityPost && <SEO title={ title }/> }
-      { data.sanityPost && (
-          <>
-            { title &&
-              <Hero
-                title={ title }
-                img={ mainImage.asset.fluid }
-                alt={ mainImage.alternativeText }
-                published={ publishedAt } />
-              }
+        {/* If there are no errors lets return the content as normal */}
+        {/* TODO: Set up SEO fully */}
+        { data.sanityPost && <SEO title={ title }/> }
+        { data.sanityPost && (
+            <>
+              { title &&
+                <Hero
+                  title={ title }
+                  img={ mainImage.asset.fluid }
+                  alt={ mainImage.alternativeText }
+                  published={ publishedAt } />
+                }
 
-            { categories && <Categories parent='blog' categories={ categories } /> }
+              { categories && <Categories parent='blog' categories={ categories } /> }
 
-            { _rawBody && <PortableText blocks={ _rawBody } /> }
-          </>
-      ) }
+              { _rawBody && <PortableText blocks={ _rawBody } /> }
+            </>
+        ) }
+      </StyledArticle>
     </Layout>
   )
 }
