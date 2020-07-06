@@ -372,7 +372,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h2 {
-    font-size: 26px;
+    font-size: 30px;
     margin-top: 1em;
     margin-bottom: 0.5rem;
   }
@@ -381,10 +381,22 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 0;
   }
 
+  li {
+    margin-bottom: 1.5rem;
+  }
+
   p, li {
     font-size: 1.0625rem;
-    margin-bottom: 1rem;
   }
+
+  p {
+    margin-bottom: 2.5rem;
+  }
+
+  figure {
+    margin: 0 0 2.5rem;
+  }
+
 `;
 
 export default GlobalStyle
