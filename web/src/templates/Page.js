@@ -21,7 +21,7 @@ const query = graphql`
       }
       mainImage {
         asset {
-          fluid {
+          fluid(maxWidth: 400) {
             ...GatsbySanityImageFluid_withWebp
           }
         }
