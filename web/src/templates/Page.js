@@ -40,7 +40,7 @@ const PageTemplate = ({ data, errors }) => {
 
   return (
     <Layout>
-      <StyledArticle>
+      <StyledArticle size="wide" >
         {/* Let's check for errors and return the error message */}
         { errors && <SEO title='GraphQL Error' /> }
         { errors && <GraphqlErrorList errors={errors} /> }
