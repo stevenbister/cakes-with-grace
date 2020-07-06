@@ -1,7 +1,8 @@
-import { Link, graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 
-import Categories from './Categories'
+import Card from './Card'
+import StyledList from './styles/PostsGrid'
 
 const PostsList = () => {
 
@@ -22,8 +23,11 @@ const PostsList = () => {
           }
           mainImage {
             asset {
-              url
+              fluid(maxWidth: 300) {
+                ...GatsbySanityImageFluid_withWebp
+              }
             }
+            alternativeText
           }
           publishedAt(formatString: "MMMM DD, YYYY")
         }
@@ -32,18 +36,19 @@ const PostsList = () => {
   `)
 
   return (
-    <>
+    <StyledList>
       { data.allSanityPost.nodes.map( ({ id, title, slug, categories, mainImage, publishedAt }) => (
-        // TODO: refactor this fella into it's own component
-        <div key={ id }>
-          <Link to={ `blog/${slug.current}` }>
-            <h2>{ title }</h2>
-            { publishedAt && <span>published { publishedAt }</span> }
-            <Categories categories={ categories } />
-          </Link>
-        </div>
-      )) }      
-    </>
+        // TODO: add publishedAt to component
+        <Card
+          key={ id }
+          title={ title }
+          parent='recipes'
+          slug={ slug }
+          categories={ categories }
+          image={ mainImage }
+        />
+      )) }
+    </StyledList>
   )
 }
 
