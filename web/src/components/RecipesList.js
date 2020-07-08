@@ -1,14 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import styled from 'styled-components'
 
 import Card from './Card'
-
-const StyledList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 3rem 2rem;
-`
+import StyledList from './styles/PostsGrid'
 
 const RecipesList = () => {
   const data = useStaticQuery(graphql`
