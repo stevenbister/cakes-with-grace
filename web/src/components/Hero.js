@@ -9,6 +9,9 @@ const StyledHero = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  ${ props => props.image ? '' : 'height: 20vh' };
+  ${ props => props.image ? '' : 'min-height: 200px' };
+  ${ props => props.image ? '' : `background: ${props.theme.secondaryColor}`};
 
   > .banner {
     height: 70vh;
@@ -37,6 +40,7 @@ const StyledHero = styled.header`
   h1 {
     font-size: 3.75rem;
     line-height: 1;
+    margin-bottom: ${ props => props.published ? '' : '0' };
   }
 
   p {
@@ -49,7 +53,7 @@ const StyledHero = styled.header`
 
 const Hero = ({ title, img, alt, published }) => {
   return (
-    <StyledHero>
+    <StyledHero image={ img } published={ published } >
       {img && <Img fluid={ img } alt={ alt } className='banner' />}
       <div className='hero__container'>
         <h1>{ title }</h1>
