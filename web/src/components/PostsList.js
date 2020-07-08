@@ -42,7 +42,7 @@ const PostsList = () => {
         <Card
           key={ id }
           title={ title }
-          parent='recipes'
+          parent='blog'
           slug={ slug }
           categories={ categories }
           image={ mainImage }
