@@ -1,10 +1,59 @@
 const path = require('path')
 
+// Create a resolver to find the posts that have the category relationship
+// This will add a new posts option to the graphql query under sanityCategory
+exports.createResolvers = ({ createResolvers }) => {
+  const resolvers = {
+    SanityCategory: {
+      posts: {
+        type: ['SanityPost'],
+        resolve (source, args, context, info) {
+          return context.nodeModel.runQuery({
+            type: 'SanityPost',
+            query: {
+              filter: {
+                categories: {
+                  elemMatch: {
+                    _id: {
+                      eq: source._id
+                    }
+                  },
+                },
+              },
+            },
+          })
+        }
+      },
+      recipes: {
+        type: ['SanityRecipe'],
+        resolve (source, args, context, info) {
+          return context.nodeModel.runQuery({
+            type: 'SanityRecipe',
+            query: {
+              filter: {
+                categories: {
+                  elemMatch: {
+                    _id: {
+                      eq: source._id
+                    }
+                  },
+                },
+              },
+            },
+          })
+        }
+      },
+    }
+  }
+  createResolvers(resolvers)
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const RecipesPageTemplate = path.resolve('./src/templates/Recipe.js')
   const PageTemplate = path.resolve('./src/templates/Page.js')
   const PostTemplate = path.resolve('./src/templates/Post.js')
+  const CategoryTemplate = path.resolve('./src/templates/Category.js')
 
   const result = await graphql(`
    {
@@ -41,6 +90,17 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allSanityCategory(filter: {slug: {current: {ne: "null"}}}) {
+        edges {
+          node {
+            id
+            title
+            slug {
+              current
+            }
+          }
+        }
+      }
     }
   `)
 
@@ -50,7 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const recipes = result.data.allSanityRecipe.edges || []
   recipes.forEach(recipe => {
     const { slug, id } = recipe.node
-    
+
     createPage({
       path: `/recipes/${ slug.current }`,
       component: RecipesPageTemplate,
@@ -79,6 +139,18 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: `/blog/${slug.current}`,
       component: PostTemplate,
+      context: { id }
+    })
+  })
+
+  // Get the categories and create a page
+  const categories = result.data.allSanityCategory.edges || []
+  categories.forEach(post => {
+    const { slug, id } = post.node
+
+    createPage({
+      path: `/categories/${slug.current}`,
+      component: CategoryTemplate,
       context: { id }
     })
   })
