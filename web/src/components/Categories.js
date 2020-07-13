@@ -38,7 +38,7 @@ const Categories = ({ parent, categories }) => (
       {categories.map(category => (
         <>
           <li key={ category._key }>
-            <Link to={ category.slug.current }>{ category.title }</Link>
+            <Link to={ `/categories/${category.slug.current}` }>{ category.title }</Link>
           </li>
         </>
       ))}
