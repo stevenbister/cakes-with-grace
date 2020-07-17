@@ -25,11 +25,6 @@ export default {
       title: 'Feature image',
       type: 'mainImage',
     },
-    {
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-    },
   ],
 
   preview: {

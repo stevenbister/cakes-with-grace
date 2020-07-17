@@ -1,5 +1,5 @@
-const ClientConfig = require('./client-config')
 require('dotenv').config()
+const ClientConfig = require('./client-config')
 
 module.exports = {
   siteMetadata: {
@@ -12,14 +12,25 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Cakes with Grace`,
+        short_name: `Cakes`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#fff`,
+        theme_color: `#fff`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/Favicon.png`, // This path is relative to the root of the site.
       },
+    },
+    // Google fonts
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Lalezar`,
+          `source sans pro\:300,400`
+        ],
+        display: `swap`
+      }
     },
     // Connect to Sanity.io
     {
